@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --color-ink: #0a0a12;
+  --color-ink-2: #10101b;
+  --color-ink-3: #171726;
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-violet: #6d5cff;
+  --color-violet-soft: #b9b0ff;
+  --color-lime: #e3f35b;
+  --color-lav: #e0e0f5;
+  --color-plum: #261c69;
+  --color-mist: #a4a4bd;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--color-ink); color: #fff; font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+::selection { background: var(--color-violet); color: #fff; }
+
+.display { letter-spacing: -0.045em; line-height: 0.95; font-weight: 500; }
+.h2 { letter-spacing: -0.035em; line-height: 1.04; font-weight: 500; }
+.eyebrow { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-mist); font-weight: 600; }
+
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes drift { from { transform: translateX(0); } to { transform: translateX(-3%); } }
+@keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+.rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+.d1 { animation-delay: .08s } .d2 { animation-delay: .18s } .d3 { animation-delay: .3s } .d4 { animation-delay: .42s }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rise, .reveal { animation: none; opacity: 1; transform: none; transition: none; }
+  * { animation-duration: .001s !important; }
+}
+
+:focus-visible { outline: 2px solid var(--color-lime); outline-offset: 3px; border-radius: 6px; }
+
+/* ============ VEYA platform (/app) — semantic tokens, light default + purpose-built dark ============ */
+@theme inline {
+  --color-canvas: var(--c-canvas);
+  --color-panel: var(--c-panel);
+  --color-sunk: var(--c-sunk);
+  --color-fg: var(--c-fg);
+  --color-fg2: var(--c-fg2);
+  --color-fg3: var(--c-fg3);
+  --color-edge: var(--c-edge);
+  --color-edge2: var(--c-edge2);
+  --color-accent: var(--c-accent);
+  --color-accent-ink: var(--c-accent-ink);
+  --color-accent-soft: var(--c-accent-soft);
+  --color-ok: var(--c-ok);
+  --color-ok-soft: var(--c-ok-soft);
+  --color-warn: var(--c-warn);
+  --color-warn-soft: var(--c-warn-soft);
+  --color-bad: var(--c-bad);
+  --color-bad-soft: var(--c-bad-soft);
+}
+.app {
+  color-scheme: light;
+  --c-canvas: #f6f6f9; --c-panel: #ffffff; --c-sunk: #eeeef4;
+  --c-fg: #0e0e16; --c-fg2: #4a4a60; --c-fg3: #6a6a80;
+  --c-edge: #e7e7ef; --c-edge2: #d3d3e0;
+  --c-accent: #5b4bf5; --c-accent-ink: #4a3ae0; --c-accent-soft: #efedff;
+  --c-ok: #15803d; --c-ok-soft: #e6f5ec; --c-warn: #a15c07; --c-warn-soft: #fdf1dc; --c-bad: #c02626; --c-bad-soft: #fdeaea;
+  --c-chart-1: #2a78d6; --c-chart-2: #eb6834; --c-chart-3: #1baf7a; --c-chart-4: #eda100; --c-chart-5: #e87ba4; --c-chart-muted: #b9b9cc;
+  background: var(--c-canvas); color: var(--c-fg); font-feature-settings: "cv11", "ss01";
+}
+.app[data-theme="dark"] {
+  color-scheme: dark;
+  --c-canvas: #0a0a11; --c-panel: #12121b; --c-sunk: #0e0e15;
+  --c-fg: #ececf4; --c-fg2: #a9a9c0; --c-fg3: #8686a0;
+  --c-edge: #22222e; --c-edge2: #33334a;
+  --c-accent: #6d5cff; --c-accent-ink: #aaa0ff; --c-accent-soft: rgb(109 92 255 / 0.16);
+  --c-ok: #4ade80; --c-ok-soft: rgb(74 222 128 / 0.12); --c-warn: #fbbf24; --c-warn-soft: rgb(251 191 36 / 0.12); --c-bad: #f87171; --c-bad-soft: rgb(248 113 113 / 0.13);
+  --c-chart-1: #3987e5; --c-chart-2: #d95926; --c-chart-3: #199e70; --c-chart-4: #c98500; --c-chart-5: #d55181; --c-chart-muted: #3d3d52;
+}
+.app :focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+.app ::selection { background: var(--c-accent); color: #fff; }
+.app .num { font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.app .scroll-thin { scrollbar-width: thin; scrollbar-color: var(--c-edge2) transparent; }
+.app .react-flow { --xy-background-color: var(--c-sunk); --xy-edge-stroke-default: var(--c-fg3); --xy-controls-button-background-color-default: var(--c-panel); --xy-controls-button-color-default: var(--c-fg); --xy-controls-button-border-color-default: var(--c-edge); --xy-minimap-background-color-default: var(--c-panel); --xy-attribution-background-color-default: transparent; }
+.app .react-flow__attribution { display: none; }
+@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+.skeleton { background: linear-gradient(90deg, var(--c-edge) 25%, var(--c-sunk) 50%, var(--c-edge) 75%); background-size: 200% 100%; animation: shimmer 1.6s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+@keyframes page-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.app .page-in { animation: page-in .18s ease-out both; }
+@media (prefers-reduced-motion: reduce) { .app .page-in { animation: none; } }
+
+/* Hero ambient motion: transform/opacity only, so it runs on the compositor. */
+@keyframes twinkle { from { opacity: 1; } to { opacity: 0.35; } }
+@keyframes drift-a { from { transform: translate3d(-22px, 0, 0); } to { transform: translate3d(22px, 0, 0); } }
+@keyframes drift-b { from { transform: translate3d(30px, 0, 0); } to { transform: translate3d(-30px, 0, 0); } }
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.twinkle-a { animation: twinkle 3.4s ease-in-out infinite alternate; }
+.twinkle-b { animation: twinkle 5.1s ease-in-out -2s infinite alternate; }
+.cloud-back { animation: drift-a 30s ease-in-out infinite alternate; }
+.cloud-front { animation: drift-b 22s ease-in-out infinite alternate; }
+.bead-ring { animation: spin-slow 26s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .twinkle-a, .twinkle-b, .cloud-back, .cloud-front, .bead-ring { animation: none !important; } }
